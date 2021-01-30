@@ -1,5 +1,4 @@
 # ShibaTemplateについて
-[トップへ](./index.md)
 
 ## 目次
 
