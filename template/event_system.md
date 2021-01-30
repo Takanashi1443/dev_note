@@ -72,4 +72,5 @@ namespace (Project Name).StageScene
 ```
 
 シーンマネージャはイベント発行用にSceneEventReactivePropertyを持ち、
-外部に対して'IObservable<SceneEvents>'として公開する。
+外部に対してIObservable\<SceneEvents\>として公開する。
+
