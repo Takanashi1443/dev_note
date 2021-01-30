@@ -33,14 +33,17 @@ GameObjectは、ゲームマネージャに管理されていなくても「イ�
 
 ### シーンごとのイベント
 
+#### イベントの種類を列挙体として定義する
+
 シーンごとのイベントは、イベントの種類を列挙した専用の列挙体および、
 その列挙体を取り扱う専用のReactivePropertyを定義する。
 例えば、あるシーン（シーン名：Stage）に、
-- READY
-- DEATH
-- CLEAR
+
+- READY … シーンの準備完了。これを実行後操作可能になる
+- DEATH … プレイヤーの死亡。
+- CLEAR … プレイヤーのクリア。
+
 の3つのイベントを用意するとする。
-（ここで、READYはシーンのトランジションが終わったことを表すイベントで、基本的にどのシーンにも用意する）
 この時、
 Assets/(Project Name)/Scripts/StageSceneフォルダ内に、
 SceneEvents.csスクリプトを作り、以下のように記述する。
@@ -71,6 +74,13 @@ namespace (Project Name).StageScene
 
 ```
 
-シーンマネージャはイベント発行用にSceneEventReactivePropertyを持ち、
-外部に対してIObservable\<SceneEvents\>として公開する。
+イベントマネージャはイベント発行用にSceneEventReactivePropertyを持つ。
+
+#### イベントリスナの動作
+
+イベントマネージャは、外部に対してIObservable\<SceneEvents\>として公開する。
+
+
+#### イベントコーラーの動作
+
 
