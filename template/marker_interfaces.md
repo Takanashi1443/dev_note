@@ -4,7 +4,7 @@
 ## はじめに
 
 <details>
-<summery>はじめに</summery>
+<summary>はじめに</summary>
 
 コンポーネントの権限を明確にする、あるいは素性を忘れた時にコンポーネントの役割を把握しやすくするために
 マーカーインターフェイスを使用する。
@@ -18,10 +18,16 @@
 その権限を持たない。
 
 <details>
-<summery>権限を表すマーカーインターフェイスの一覧</summery>
+<summary>権限を表すマーカーインターフェイスの一覧</summary>
 
 ### [イベントシステム](event_system.md)に関するもの
-IEventCallable
-:
+
+#### IEventCallable
+
+イベントを発行する機能全般。
+
+#### IEventListenable
+
+イベントを購読する機能全般。
 
 </details>

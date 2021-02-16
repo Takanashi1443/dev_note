@@ -9,29 +9,79 @@
 影響を与える対象が増えるたびにゲームマネージャを書き換えなければならず、不便である。
 そこで、「イベント」という仕組みを使う。
 
-GameObjectは、ゲームマネージャに管理されていなくても「イベント」を発行することができ、
-「イベント」が発行されると、それに反応するGameObjectたちが勝手に反応する。
+各コンポーネントは、ゲームマネージャに管理されていなくても「イベント」を発行することができ、
+「イベント」が発行されると、それに反応する各コンポーネントたちが勝手に反応する。
 
-## イベントシステムの基本的な実装
+イベントは様々な種類を定義できるが、最も基本的なものはシーンの進行に関する「シーンイベント」である。
 
-イベントシステムには、
+ここではシーンイベントの詳細について説明する。他の種類のイベントの作り方も基本的には同様である。
 
-- イベントマネージャ (Event Manager)
-- イベントリスナ (Event Listener)
-- イベントコーラー (Event Caller)
+## シーンイベント
 
-の3種類のコンポーネントが存在する。
+### シーンイベントの仕様
 
-イベントは、UniRxのIObservableを使って実装する。
-詳細は省略するが、イベントの発行がIobservableのOnNext関数、反応がSubscribe関数に対応する。
+シーンイベントの基本は、GameControllerモジュール内に準備されている。
 
-イベントマネージャは、IObservableの実体を保持する。
-イベントリスナは、イベントマネージャへの参照をDIにより取得し、イベントマネージャ経由で取得したIObservableの実体にSubscribeを行う。
-イベントコーラーは、イベントマネージャへの参照をDIにより取得し、イベントマネージャ経由で取得したIObservableの実体にOnNextを行う。
+シーンで発生するイベントを列挙したものを準備し（通常、シーンの名前空間内にSceneEventsという名前の列挙型を定義する）、
+イベントの値をマネージャから発行する。
 
-## イベントの種類
+シーンイベントでは、パラメータを渡すことは出来ない。
+例えば、クイズにおいて、「正解した」というイベントは作れるが、「3番を選んで正解した」（3は他の数にもなりうる）のような、
+パラメータを伴うイベントは作れない。
 
-### シーンごとのイベント
+### イベントシステムに係わるコンポーネントと機能の概略
+
+#### 5種類のコンポーネント
+
+イベントシステムに関連するものの種類として、
+
+- シーンマネージャ (SceneManager)
+- コーラー (SceneEventCaller)
+- リスナー (SceneEventListener)
+- トランスミッター (SceneEventTransmitter)
+- レシーバ (SceneEventReceiver)
+
+の5つが存在する。
+
+また、シーンごとに定義される列挙型クラスSceneEventsがある。
+
+上記5種類のコンポーネントは全て、列挙型であるSceneEvents（シーンで発生するイベント）を持つジェネリックとして定義される。
+
+上記の5つのうち、コーラーは、シーンイベントを発行するもの全般、リスナーは、シーンイベントを受けて何かするもの全般を指す。
+
+一方、トランスミッターはコーラーから利用され、シーンマネージャを参照してイベントを発行するだけの機能を持つコンポーネント、
+レシーバはシーンマネージャを参照してイベントの発行を受信しリスナーに伝えるだけの機能を持つコンポーネントである。
+
+#### シーンマネージャ
+
+シーンマネージャは、購読対象となるストリームの実体（Subject\<SceneEvents\>）を持ち、IObservable\<SceneEvents\>を外部に公開する。
+トランスミッターから参照され、イベントを引数としてイベント実行を試みる関数CallEventを実行される。
+シーンマネージャは、イベント実行を許可する場合（ValidEvent関数による検証）、CallEventで指定された値のストリームを発行する。
+
+シーンマネージャは、トランスミッターがイベント実行を要求しても棄却する権限を持つ。
+
+#### トランスミッター
+
+トランスミッターは、コーラーと同じGameObjectにアタッチされ、参照される。
+
+トランスミッターはシーンマネージャを参照し、コーラーからCallEvent関数を実行された時、シーンマネージャのInvokeEvent関数を実行する。
+
+コンポーネントは原則、トランスミッター経由以外でシーンマネージャのInvokeEvent関数を実行してはならない。
+
+#### レシーバ
+
+レシーバは、リスナーと同じGameObjectにアタッチされ、相互に参照する。
+
+レシーバはシーンマネージャを参照し、IObservable\<SceneEvents\>を購読する。シーンマネージャからイベントが発行された時、
+リスナーのOnEventCalled関数を実行することでそれをリスナーに伝える。
+
+コンポーネントは原則、レシーバ経由以外でシーンマネージャのストリームを購読してはならない。
+
+#### コーラーとリスナー
+
+コーラーはトランスミッターを参照するもの、リスナーはレシーバを参照するもの全般を指す。
+
+### シーンイベントの実装方法
 
 #### イベントの種類を列挙体として定義する
 
@@ -45,10 +95,11 @@ GameObjectは、ゲームマネージャに管理されていなくても「イ�
 
 の3つのイベントを用意するとする。
 この時、
-Assets/(Project Name)/Scripts/StageSceneフォルダ内に、
+Assets/HogeProject/Scripts/FugaSceneフォルダ内に、
 SceneEvents.csスクリプトを作り、以下のように記述する。
 
 ```
+
 namespace (Project Name).StageScene
 {
     /// <summary>
@@ -60,21 +111,38 @@ namespace (Project Name).StageScene
         DEATH,
         CLEAR,
     }
+}
 
-    /// <summary>
-    /// シーンイベントに対するReactiveProperty
-    /// </summary>
-    [System.Serializable]
-    public class SceneEventReactiveProperty : ReactiveProperty<SceneEvents>
+```
+
+#### SceneManagerを派生クラスとして定義
+
+GameControllerに定義されているSceneManagerBase\<SceneEvents\>またはStandardSceneManager\<SceneEvents\>を派生させ、
+シーン固有のSceneManagerクラスを定義する。
+クラス名はSceneManagerで良い。
+
+イベントマネージャはイベント発行用に Subject\<SceneEvents\> を持つ。
+
+```
+using UniRx;
+
+namespace (Project Name).StageScene
+{
+    public class SceneEventManager : MonoBehaviour, ISceneEventManager
     {
-        public SceneEventReactiveProperty (){}
-        public SceneEventReactiveProperty (SceneEvents initialValue) : base (initialValue) {}
+        /// <summary>
+        /// enum値で発行されるイベントのストリーム。
+        /// </summary>
+        protected Subject<SceneEvents> m_sceneEvent = new Subject<SceneEvents>();
+
+        (中略)
     }
 }
 
 ```
 
-イベントマネージャはイベント発行用にSceneEventReactivePropertyを持つ。
+#### Zenjectのシーン用MonoInstallerの定義
+
 
 #### イベントリスナの動作
 
@@ -82,5 +150,10 @@ namespace (Project Name).StageScene
 
 
 #### イベントコーラーの動作
+
+
+### GameControllerモジュール内のソースコードの解説
+
+
 
 
