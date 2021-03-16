@@ -53,7 +53,7 @@ ThirdPersonController Knight上にKnightを消してから別のCustomized Sampl
 そのプレハブに設定されたAnimatorのモーションが優先されてしまう。
 
 最初の子に対しては親のAnimatorのControllerが適用され、それ以外の子に対しては子のAnimatorのControllerが適用されるっぽいが、Animatorの入れ子構造の意味がよく分からないので保留。
-とりあえず、子のAnimatorは削除しても動く。
+とりあえず、子のAnimatorは削除しても動く。ここでは一旦削除して話を進める。
 
 Avatarは共通で「Female 01 Avatar」を使用するようだ。
 
@@ -63,6 +63,8 @@ Avatarは共通で「Female 01 Avatar」を使用するようだ。
 #### 組み合わせでキャラを作ってみる
 
 01 Top, 02 Bottom, 03 Hands, 04 Belt, 05 Feetからそれぞれ1つを表示させることで表示できる。
+各パーツを01にすると下着姿になる。
+
 また、Rig以下の「+〇〇」というオブジェクトの下にアクセサリーを配置すると髪型を変えたりアクセサリーを
 変えたりすることができ、表情などもこれで配置する。
 例として、サンプルキャラクターNoviceには+Headの位置に
@@ -99,6 +101,31 @@ Avatarは共通で「Female 01 Avatar」を使用するようだ。
 
 Unlit/TransparentはBase (RGB) Trans (A)としてテクスチャ1つを指定するようになっている。
 要は画像をそのままメッシュに貼り付けて、光とかを考慮せずに表示するシェーダ。
+
+##### 服
+
+Toon/Basic OutlineはBase (RGB)とToonShader Cubemap(RGB)を指定する。
+Cubemapはテクスチャ6つが1つになったもの。
+ToonShaderの方は、デフォルトではChibiLitで固定。トゥーンシェーダ公式のToonLitというCubemapもあり、これを指定するとより極端な陰影になる。
+
+とりあえずFBX Exporterでのエクスポート（Hierachy上に配置→Export）を試してみたがやっぱり滅茶苦茶。
+Assetフォルダの中にあるFBXファイルを直接別の場所に移してインポートすると、一応それっぽいものがインポートされた。頭部はそもそも別モデル。
+
+各パーツにSkinned Mesh Rendererコンポーネントがついている。→ボーン設定を指す。テクスチャやUVとは関係ない。
+
+素体は、fbxの各パーツにマテリアルを設定したもの。
+fbx自体にはマテリアルはついていないようだ。
+
+UV座標の情報はMeshに含まれている。
+
+
+fbxにはテクスチャも含められる（？）が、意図的に外している。
+テクスチャを差し替えることで肌の色、服の色や模様を変えられる。
+→3DRTでも使用されていた方法？
+
+後は割とBlender側の知識の問題やな…。
+
+
 
 
 
