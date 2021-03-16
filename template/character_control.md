@@ -58,7 +58,7 @@ Mesh Colliderがつくのがポイント。コライダーは衝突判定に使�
 
 ステージはLevelというダミーGameObjectを作ってその子として全部配置すると良い。
 
-### キャラクター
+### キャラクターを準備する方法
 
 これもお気に入りのアセットを使ってみたいっすねぇ。
 
@@ -67,6 +67,8 @@ Mesh Colliderがつくのがポイント。コライダーは衝突判定に使�
 
 #### テンションは上がらないが一番つまづきにくい
 
+長いですが、ひとまず一番丁寧に。
+
 さっき作ったLevel又は準備したステージの親オブジェクトを右クリックし、
 
 「3D Object」→「Capsule」。
@@ -74,5 +76,61 @@ Mesh Colliderがつくのがポイント。コライダーは衝突判定に使�
 床にめり込む（でかい）カプセルが出現する。
 
 ![create_capsule](./media/character_control/create_capsule.png)
+
+とりあえずTransformのPositionのYを1にして床から引っ張り上げる。
+
+再生。
+
+![static_capsule](./media/character_control/static_capsule.png)
+
+動かない。
+
+重力とか与えてないんで……。
+
+「Add Component」→「Rigidbody」追加。ついでに、Transform.Rotation.Zを1にしてちょっと傾ける。
+
+再び再生。
+
+![rigid_capsule](./media/character_control/rigid_capsule.png)
+
+おっ、なんかゆっくり倒れた。いい感じ。
+
+これは床とちゃんと衝突するかのテストでした。Colliderは衝突を、Rigidbodyは力学的な挙動を担当しています。
+
+じゃあ衝突するだけならRigidbodyは要らないのかと言えば、Colliderだけでも衝突は判定してくれますが、
+衝突した後の挙動が計算されないので、動作としてはすり抜けてしまい結局よく分からない結果に。
+
+マス目で動かすゲームとかだとRigidbodyは不要でColliderだけでの判定をすることもありますが、
+ここでは「とりあえず3D空間を動かす」が目的なので、Rigidbodyを使いましょう。
+
+落下速度が気に食わなければ、「Edit」→「Project Settings」→「Physics」のGravityを変更すれば変更できます。
+
+Rigidbodyの設定を少しいじって、ConstraintsのFreeze RotationのX, Zにチェックをつけると、倒れなくなります。
+
+これでキャラクター（ここではカプセル）が床につまづいたり、天井などに顔面強打しても傾かなくなります。
+
+また、Use Gravityはひとまずチェックを入れておきましょう。
+
+![rigid_capsule2](./media/character_control/rigid_capsule2.png)
+
+試しに、Rotationに適当な値を入れて再生するとこんな感じ。
+
+さっきと絵面は似ていますが、傾いても倒れません。
+
+地面を傾けたりして挙動を確認してみましょう。
+
+気が済んだら床は平らに戻して、カプセルのTransform.Rotation.Zも0に戻しましょう。
+このカプセルがキャラクターとなります。
+
+#### テンションが上がるいくつかの方法
+
+
+### キャラクターを動かす
+
+「Add Component」で検索窓に「Character Controller」と入れて出てきたものをアタッチする。
+
+![initial_character_controller](./media/character_control/initial_character_controller.png)
+
+
 
 
