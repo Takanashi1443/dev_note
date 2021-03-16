@@ -40,6 +40,8 @@ Character Controller以外にも、RigidbodyにAddForceする方法とかいく�
 
 #### おすすめじゃないけど早い
 
+ひとまず最初はこれでやってみて、キャラクターを動かせたらおすすめに行くのが良いかも知れない。
+
 Levelというダミーオブジェクトを作り、それを右クリックして「3D Object」→「Plane」と選択して、床を作る。
 
 名前をFloorに変更する。
@@ -48,6 +50,8 @@ Mesh Colliderがつくのがポイント。コライダーは衝突判定に使�
 コンポーネントを削除するとキャラクターがすり抜けてしまう。
 
 #### おすすめ
+
+おすすめと言うか、自分が実際に試したものたち。
 
 
 
@@ -120,9 +124,17 @@ Rigidbodyの設定を少しいじって、ConstraintsのFreeze RotationのX, Z�
 地面を傾けたりして挙動を確認してみましょう。
 
 気が済んだら床は平らに戻して、カプセルのTransform.Rotation.Zも0に戻しましょう。
+
+はい、完成。
 このカプセルがキャラクターとなります。
 
 #### テンションが上がるいくつかの方法
+
+ColliderとRigidbodyをつけたものを作るというのは一緒ですが、キャラクターの提供方法によって
+動かす方法は色々……。
+
+いずれも説明が長くなるので、ここでは他ドキュメントのリンクとします。
+
 
 
 ### キャラクターを動かす
@@ -130,6 +142,15 @@ Rigidbodyの設定を少しいじって、ConstraintsのFreeze RotationのX, Z�
 「Add Component」で検索窓に「Character Controller」と入れて出てきたものをアタッチする。
 
 ![initial_character_controller](./media/character_control/initial_character_controller.png)
+
+この状態で再生しても何も変わりません。
+
+Character Controllerは、あくまで、Rigidbodyを直接操作せずに
+キャラクターをいい感じに動かす仕組みを提供してくれるコンポーネントです。
+
+やることは、Rigidbodyの操作と、Rigidbodyから現在の状態を受け取ることで、
+この他に、Character Controllerに、どうRigidbodyを操作するかを指示するスクリプトが必要となります。
+
 
 
 
