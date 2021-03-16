@@ -4,8 +4,7 @@
 
 - [ゲームのアイデア](game_idea/index.md)
 - [技術に関する3つのリスト](tech_list/index.md)
-- [ShibaTemplateについて](template/index.md)
-- [Unity勉強中](unity_study/index.md)
+- [Unityの学習・ShibaTemplateについて](template/index.md)
 - [Unityのアセット](assets/index.md)
 - [その他](others/index.md)
 

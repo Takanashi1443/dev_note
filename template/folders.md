@@ -1,5 +1,7 @@
 # フォルダ構成
 
+[戻る](./../index.md)
+
 ## Assetsフォルダ内
 
 Assetsフォルダ直下は多くのサードパーティアセットのインポート先であり、
@@ -31,10 +33,11 @@ ShibaTemplateは、Pluginsに入れる代わりにアセンブリ分割(asmdef�
 
 - Textures : 画像ファイルを入れる。
 - Audio : 音声ファイルを入れる。
+- Models : 3Dモデルファイルを入れる。3Dモデルにテクスチャなどが含まれる場合、それも含めてよい。
 - Materials : マテリアルファイルを入れる。
 - Shaders : シェーダファイルを入れる。
 - Prefabs : プレハブを入れる。
-- Models : ScriptableObjectとして生成したデータを入れる。
+- Items : ScriptableObjectとして生成したデータなどを入れる。ツクールのデータベース的なもの。
 - Scenes : シーンファイルを入れる。
 - Scripts : スクリプトファイルを入れる。
 - Editor : エディタ拡張を入れる。
@@ -56,6 +59,7 @@ ShibaTemplateは、Pluginsに入れる代わりにアセンブリ分割(asmdef�
 ### ShibaTemplateフォルダ直下
 
 ShibaTemplateフォルダ直下は以下のような構成とする。
+以下、確認中。
 
 - Moderator : 各モジュールから共通して利用されるスクリプトを入れる。詳細はModeratorを参照。
 - Utils : 各モジュールから共通して利用される属性などを入れる。
@@ -74,9 +78,6 @@ ShibaTemplateフォルダ直下は以下のような構成とする。
 [イベントシステム](event_system.md)及びシーン遷移関連のモジュール。
 
 かなりよく使う。
-
-シーンイベントのストリームを発行し、またシーン遷移の判定を行う「SceneManagerBase\<T\> where T : Enum」が中心となる。
-実際のアプリでは、Enumとしてシーン固有のSceneEventsを定義し、SceneManagerBaseを派生させたシーン固有のSceneManagerを使用する。
 
 ### Wrappersについて
 
