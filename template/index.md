@@ -12,7 +12,9 @@
 ## 目次
 
 - [フォルダ構成](./folders.md)
-- [とりあえずキャラクターで3D空間を動けるようにする](./character_control.md)
+- [とりあえずキャラクターで3D空間を動けるようにする]
+    - [キャラクターの準備(CharacterController)](./character_control.md)
+    - [カメラの準備(Cinemachine)](./camera_cinemachine.md)
 - [イベントシステム](./event_system.md)
 - [マーカーインターフェイス](./marker_interfaces.md)
 

@@ -30,6 +30,12 @@ Character Controllerは、斜面とか壁とかとの衝突をなんかうまい
 Character Controller以外にも、RigidbodyにAddForceする方法とかいくつか方法はありますが、
 ひとまずシンプルな方法で、あくまで現時点では3D空間をキャラが動いてテンションを上げることが目的なので。
 
+なお、Character Controllerで動かす方法の大きな制約として、他のオブジェクトからの物理的な相互作用を
+受けられない・与えられないということがあります。
+
+物理的なギミックのついたステージ（例えば鎖分銅とかで吹っ飛ばされるような）では
+うまくキャラクターを動作させられません。
+
 ## 準備
 
 それぞれいくつか方法があります。
@@ -125,13 +131,23 @@ Rigidbodyの設定を少しいじって、ConstraintsのFreeze RotationのX, Z�
 
 気が済んだら床は平らに戻して、カプセルのTransform.Rotation.Zも0に戻しましょう。
 
-はい、完成。
-このカプセルがキャラクターとなります。
+この状態が、物理的な相互作用を与えられる、受けられるプレイヤーの基本形です。
+
+今回は、Character Controllerを使用するため、「Rigidbodyを外します」。
+
+Character Controllerは、Rigidbodyの代わりをするようなコンポーネントです。
+
+Rigidbodyの場合、力を加えることで動かしますが、Character Controllerはもっと直観的に
+動かしたり、ゲームでよくある形（例えば特定の角度までは坂を登れる、特定の高さの段差は越えられるなど）の
+キャラクター動作を簡単に実装することが出来ます。
+
+Character Controllerはこの先でアタッチするので、この「Colliderあり、Rigidbodyなしのもの」が
+ここでのキャラクターの原型となります。
 
 #### テンションが上がるいくつかの方法
 
-ColliderとRigidbodyをつけたものを作るというのは一緒ですが、キャラクターの提供方法によって
-動かす方法は色々……。
+Colliderあり、Rigidbodyなしのものを作る、いうのは一緒ですが、
+キャラクターの提供方法によってその状態にするまでの方法は色々……。
 
 いずれも説明が長くなるので、ここでは他ドキュメントのリンクとします。
 
@@ -139,17 +155,39 @@ ColliderとRigidbodyをつけたものを作るというのは一緒ですが、
 
 ### キャラクターを動かす
 
-「Add Component」で検索窓に「Character Controller」と入れて出てきたものをアタッチする。
+「Add Component」で検索窓に「Character Controller」と入れて出てきたものをアタッチします。
 
 ![initial_character_controller](./media/character_control/initial_character_controller.png)
 
 この状態で再生しても何も変わりません。
 
-Character Controllerは、あくまで、Rigidbodyを直接操作せずに
+Character Controllerは、あくまで、Rigidbodyを使わずに
 キャラクターをいい感じに動かす仕組みを提供してくれるコンポーネントです。
 
-やることは、Rigidbodyの操作と、Rigidbodyから現在の状態を受け取ることで、
-この他に、Character Controllerに、どうRigidbodyを操作するかを指示するスクリプトが必要となります。
+Rigidbodyをアタッチしたキャラクター動かすのにRigidbodyへ力を加えるのが必要なように、
+Character Controllerをアタッチしたキャラクターを動かすのにも、
+Character Controllerにアクセスして移動命令を出すための仕組みが必要となります。
+
+とりあえず一番シンプルな例として、Unityのサンプルをパクってきた
+
+ShibaTemplate.Wanderer.SimpleWanderer01
+
+をアタッチして再生します。
+
+すると、WASDでキャラが動き、スペースキーでジャンプするようになります。
+
+
+しかしこれだとカメラに合った位置にキャラクターを配置しないとキャラが映らないし、
+カメラがキャラを追随してくれないので、ステージに置いて動かすとすぐ見えなくなってしまいますね。
+
+
+それでは面白くないので、カメラがキャラを追随する仕組みも作っておきましょう。
+
+
+
+
+
+
 
 
 
