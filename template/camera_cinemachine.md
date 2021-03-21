@@ -11,10 +11,28 @@ CinemachineVirtualCameraは、プレイヤーに追随させたりといった�
 
 複数のバーチャルカメラを組み合わせたり、滑らかに切り替えたり（ブレンド）出来ます。
 
+## CinemachineVirtualCameraの導入
+
+Cinemachineをインストール後、「Cinemachine」→「Create Virtual Camera」で、
+Hierachy上に「CinemachineVirtualCamera」というコンポーネントがアタッチされたGameObjectが作成されます。
+
+![create_vcam_virtual_camera](./media/cinemachine_camera/create_vcam_virtual_camera.png)
+
+また、Main Cameraの横に、VirtualCameraと同じアイコンが出現します。
+内容を確認すると、CinemachineBrainというコンポーネントが付与されています。
+
+![create_vcam_main_camera](./media/cinemachine_camera/create_vcam_main_camera.png)
+
+これは、Main CameraがCinemachineVirtualCameraによってコントロールされていることを差し、
+この状態になると、MainCameraの位置や向き、画角といったものがCinemachineによってコントロールされることを指します。
+
+ひとまず、今回は1つのVirtualCameraのみを使います。
+
+## CinemachineVirtualCameraの設定のサンプル
+
 設定項目が多くて適当にいじっててもなかなかいい感じにならないので、
 目的に合わせた設定方法のサンプルを示します。
 
-## CinemachineVirtualCameraの設定のサンプル
 
 ### SimpleWanderer04と組み合わせる
 
