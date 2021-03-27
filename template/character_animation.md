@@ -23,15 +23,32 @@ CharacterControllerについての処理は何も変わらないと考えても�
 
 （PlayerとPlayerModelという呼び方はTopdownEngineの呼び方を引用している）
 
+購入したアセットのfbxファイルをそのまま上図のように配置すると、表示はされるが、Tポーズで動かない。
+
+![player_tpose](./media/character_animation/player_tpose.png)
+
+これは待機時のポーズも含めたアニメーション（完全な静止も基本的に再生時間0のアニメーションとして表現される）が設定されていないためである。
+
+次に、基本的なアニメーションをさせることを考える。
+
 ## Unityの人型アニメーションを構成するもの
 
 Unityの人型アニメーションは、以下のような要素からなっている。
 
-- 人型モデル（.fbxファイル）
+（方法はいくつかあるが、ここではこの方法のみを説明する）
+
+- 人型モデル本体（.fbxファイル）
 - AnimationClip（.animファイル）
-- AnimationController（.Controllerファイル）
 - Animatorコンポーネント（コンポーネント）
+- AnimationController（.Controllerファイル）
 - Avatar（.fbxファイルのmetaファイルの中に含まれる設定）
+
+AnimationClipがいわゆる「アニメーション内容」だが、それをおもむろにモデルに設定して再生させる、ということはできない。
+
+まず、どうすれば良いかを示すと、以下のようになる。
+
+![chara_animation_setting](./media/character_animation/chara_animation_setting.png)
+
 
 
 
