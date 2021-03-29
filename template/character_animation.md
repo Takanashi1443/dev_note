@@ -25,7 +25,7 @@ CharacterControllerについての処理は何も変わらないと考えても�
 
 購入したアセットのfbxファイルをそのまま上図のように配置すると、表示はされるが、Tポーズで動かない。
 
-![player_tpose](./media/character_animation/player_tpose.png)
+![chara_tpose](./media/character_animation/chara_tpose.png)
 
 これは待機時のポーズも含めたアニメーション（完全な静止も基本的に再生時間0のアニメーションとして表現される）が設定されていないためである。
 
@@ -48,6 +48,8 @@ AnimationClipがいわゆる「アニメーション内容」だが、それを�
 まず、どうすれば良いかを示すと、以下のようになる。
 
 ![chara_animation_setting](./media/character_animation/chara_animation_setting.png)
+
+Animatorコンポーネントは「Add Component」で追加できる。
 
 
 
