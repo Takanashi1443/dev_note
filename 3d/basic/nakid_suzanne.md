@@ -59,9 +59,25 @@ Blenderでは右手、Unityでは左手になる。
 オブジェクトを階層構造にしすぎたりするとうまく動作してくれないらしい。
 
 奥の手としてはモデル全体を回転させて、Z軸正方向に向かせて、さらに左右反転させること。めんどくさそう。
+とりあえず困るまではエクスポート設定で対応しよう。
 
 #### ちゃんと読み込めたSuzanneを見てみる
 
+Projectビュー上で読み込んだSuzanneを確認すると、「マテリアル」と「メッシュ」が中に入っているような感じになっている。
+
+![suzanne_hierachy](./media/nakid_suzanne/suzanne_hierachy.png)
+
+また、fbxファイル自体にカーソルを合わせてInspectorビューを表示させると、「import settings」という項目が表示され、「Model」「Rig」「Animation」「Materials」と設定項目がタブに分かれていっぱいある。
+
+人型を読み込むときはここで人型の設定をするが、ここでは無視する。
+
+![suzanne_import_setting](./media/nakid_suzanne/suzanne_import_setting.png)
+
+また、Hierachy上に配置したSuzanneにカーソルを合わせてInspectorビューを表示させると、「Mesh Renderer」と「Mesh Filter」のコンポーネントがある。
+
+Mesh Filterには先ほどProjectビュー上で見た「メッシュ」が、Mesh Rendererには、マテリアルとしてProjectビュー上で見た「マテリアル」が適用されている。
+
+![suzanne_inspector](./media/nakid_suzanne/suzanne_inspector.png)
 
 
 
