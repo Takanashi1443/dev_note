@@ -12,7 +12,7 @@
 
 基本的に使用する3Dモデルのフォーマットであるfbxフォーマットの基本について。
 
-###### [Blenderのファイル構造とfbxへの出力](./basic/blender_export)
+###### [Blenderのファイル構造とfbxへの出力](./basic/blender_fbx.md)
 
 Blenderのオリジナルの拡張子はblendである。Blenderのファイルがどのような構造か。注意点なども。
 
