@@ -47,7 +47,7 @@ Blenderでは右手、Unityでは左手になる。
 
 ![export_suzanne](./media/nakid_suzanne/export_suzanne.png)
 
-- Scaleを「1.00」にしてApply Scalingsにチェックをつける
+- Scaleを「1.00」にしてApply Scalingsを「FBX All」にする
 - Forwardを「-Z」、Upを「+Y」つまりUnityの設定に合わせる
 - Apply UnitとApply Transformationのどっちにもチェックをつける
 
@@ -79,5 +79,28 @@ Mesh Filterには先ほどProjectビュー上で見た「メッシュ」が、Me
 
 ![suzanne_inspector](./media/nakid_suzanne/suzanne_inspector.png)
 
+さらに、Suzanneの内部に含まれているMaterialを見てみると、編集できないが、「Shader」が「Standard」となっている。
 
+これはUnity標準のStandard Shaderで、SuzanneはBlender上ではマテリアル未設定だが、Unityに持ってくるとStandard Shaderが適用されたマテリアルが作られ、自動で割り当てられる。
+
+さて、この「Standard Shaderが適用されたマテリアル」について、マテリアルは通常、拡張子がmatのファイルだが（例えばProjectビュー上で「Create」→「Material」を選択すると生成できる）、Suzanneのfbxファイルの入ったフォルダを開くとこのマテリアルは確認できない。
+
+実は、そのあたりはmetaファイル内に書かれており、Unity上で扱える仮想のマテリアルのようになっている。
+
+この「ファイルとしては存在しないがUnity上で仮想的に扱えるもの」は、Projectビュー上で選択して「Ctrl+D」で
+実ファイルとして切り出せるようになっている。あまり情報として出てこないが、よく使う。
+
+Suzanne.fbxから仮想的に生成されたメッシュとマテリアルをそれぞれ「Ctrl+D」で切り出すと、Projectビュー上でこのように表示され……。
+
+
+フォルダ上にもちゃんと存在する。なお、元のファイルには影響を与えない。
+
+
+さらに、空のGameObjectにMesh FilterとMesh Rendererをアタッチして切り出したメッシュとマテリアルを当てはめると、ちゃんとSuzanneになる。
+
+つまり、この「仮想的なもの」（以下、仮想アセット）は編集できないだけで普通のマテリアルやメッシュと同じで、また切り出すことで独立したものとして扱うことができるということ。
+
+Suzanneはアニメーションを持たないが、実はアニメーションもfbxを読み込むと仮想アセットとして読み込まれ、それを切り出して他の人型モデルに適用することでアニメーションを使いまわすことができる。
+
+そのあたりはのちのちやってみよう。
 
