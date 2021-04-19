@@ -24,15 +24,14 @@ Blenderのオリジナルの拡張子はblendである。Blenderのファイル�
 
 ###### [マテリアル未設定の「スザンヌ」をUnityに持っていく](./basic/nakid_suzanne.md)
 
-スザンヌはサルの頭部みたいなキャラクター。
+Blenderで生成したfbxファイルをUnityに持っていく。仮想アセットの概念。
 
-###### Blenderにおけるマテリアル
+###### BlenderにおけるマテリアルとUnityへの移行(./basic/blender_material_to_unity.md)
 
-###### マテリアルを設定した「スザンヌ」をUnityに持っていく
 
-###### Blenderにおけるテクスチャ
 
-###### テクスチャを設定したCubeをUnityに持っていく
+###### BlenderにおけるテクスチャとUnityへの移行
+
 
 ###### Blenderにおけるアニメーション（回転）
 
