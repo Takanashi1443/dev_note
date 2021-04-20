@@ -1,6 +1,6 @@
 [Unity - グラフィックの目次へ](./../index.md)
 
-### 既存モデルのシェーダを変更して遊んでみる
+# 既存モデルのシェーダを変更して遊んでみる
 
 自分の作りたい「画」を探すために色んなシェーダを試したい。
 そして、折角なら単純なモデルでなくヒューマノイドとかを実験台にしたい。
@@ -13,9 +13,9 @@
 
 ここでは、デフォルメの入った3Dキャラである「ATART Archer」を例に説明する。
 
-#### fbxファイルを複製してシェーダを差し替える
+## fbxファイルを複製してシェーダを差し替える
 
-##### ファイルの複製
+### ファイルの複製
 
 オリジナルデータを変更せずにシェーダを差し替えるということで、
 まずはfbxファイルをそのまま複製する。
@@ -29,7 +29,7 @@ Projectビュー上でファイル（ここではfbxファイル）を選んでC
 複製したファイルは好き勝手してもいいように別フォルダに移しておく。
 ここではSandbox/Models/Duplicatedフォルダに入れ、ファイル名をShaderArcher01に変更した。
 
-##### fbxファイルの中身を見る
+### fbxファイルの中身を見る
 
 複製したfbxファイルの中身を見ると、
 
@@ -47,8 +47,6 @@ Projectビュー上でファイル（ここではfbxファイル）を選んでC
 
 （マテリアルも内包している場合も多い。それについては後述）
 
-##### シェーダを変更する
-
 このうち、シェーダの変更にかかわる部分は「Mesh01(箱アイコン）」である。
 
 Mesh01（箱）にアタッチされているSkinned Mesh Rendererには2つのマテリアルが設定されている。
@@ -61,23 +59,30 @@ Mesh01（箱）にアタッチされているSkinned Mesh Rendererには2つの�
 
 マテリアルをクリックすると確認できるが、このマテリアルはfbxファイルとは独立して存在するファイルである。
 
+Inspectorのプレビュー表示上でマテリアルのシェーダを差し替えることが出来るが、
+そうするとマテリアルのオリジナルデータを編集してしまうことになる。
 
+よって方針としては「マテリアルもオリジナルを複製したものを作り、そのマテリアルを割り当てたい」のだが、上の画像から分かる通り、fbxファイルに割り当てられたマテリアルは変更できない（グレー表示）。
 
+### fbxファイルをシーン上に配置した時の動作
 
+では、fbxファイルをシーン上に配置するとどうなるか。
 
+![locate_fbx_on_stage](./media/locate_fbx_on_stage.png)
 
+これはfbxファイルをシーン上にD&Dで配置した時の状態である。
 
+一見fbxファイルがそのまま配置されたようにも見えるが、実際はそうではない。
 
-「Standard」シェーダなどのビルトインシェーダ（Unityに最初から提供されているシェーダ）は、一部はUnityに変換機能がついている。
+- ルートのオブジェクトはAnimatorが付与されたGameObjectであり、fbxファイルではない。
+- AvatarとMesh（格子アイコン）は無くなっている。
+- Avatarがどこに行ったかというと、Animatorの「Avatar」の欄に割り当てられている。
+- Mesh（格子アイコン）がどこに行ったかというと、Mesh01のSkinned Mesh Rendererの「Mesh」に割り当てられている。
 
-![readme_convert_material_to_urp](./media/readme_convert_material_to_urp.png)
+![locate_fbx_on_stage_avatar](./media/locate_fbx_on_stage_avatar.png)
 
-「Edit」→「Render Pipeline」→「Universal Rendering Pipeline」→「Upgrade Project Materials To UniversalRP Materials」
+![locate_fbx_on_stage_mesh](./media/locate_fbx_on_stage_mesh.png)
 
-を実行すると、プロジェクト内のマテリアルにセットされている、変換に対応しているビルトインシェーダを一括してURPの対応するものに変換できる。
+総じていえば、
 
-よく使われているビルトインシェーダの対応状況の例は以下の通り。
-
-「Standard」→「Universal Rendering Pipeline/Lit」
-: 実際の物理法則に則った3D物体に使用される。
 
