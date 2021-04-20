@@ -13,7 +13,7 @@ URP用のシェーダでないシェーダはURPでは表示されず、ピン�
 
 「Standard」シェーダなどのビルトインシェーダ（Unityに最初から提供されているシェーダ）は、一部はUnityに変換機能がついている。
 
-![readme_convert_material_to_urp](./media/readme_convert_material_to_urp.png)
+![convert_material_to_urp](./media/convert_material_to_urp.png)
 
 「Edit」→「Render Pipeline」→「Universal Rendering Pipeline」→「Upgrade Project Materials To UniversalRP Materials」
 

@@ -28,6 +28,8 @@ Unityと外部ソフトのやりとりも含む。
 
 - [URPで使えるシェーダへの変換](./shader/convert_to_urp.md)
 
+- [既存モデルのシェーダを変更して遊んでみる](./shader/change_shader.md)
+
 <!--
 
 ### Blenderとの連携編
