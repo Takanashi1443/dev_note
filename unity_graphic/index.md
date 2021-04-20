@@ -26,7 +26,7 @@ Unityと外部ソフトのやりとりも含む。
 
 ### シェーダ編
 
-- [URPについて](./shader/urp.md)
+- [URPで使えるシェーダへの変換](./shader/convert_to_urp.md)
 
 <!--
 
