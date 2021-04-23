@@ -2,92 +2,10 @@
 
 # 既存モデルのシェーダを変更して遊んでみる
 
-自分の作りたい「画」を探すために色んなシェーダを試したい。
-そして、折角なら単純なモデルでなくヒューマノイドとかを実験台にしたい。
+## マテリアルの複製・シェーダの変更
 
-そこで、ここでは以下の条件で既存モデルのシェーダを変更して遊んでみる方法について記す。
-
-- 既存モデルはfbxファイルで提供され、デフォルトで「URP/Lit」シェーダが使用されているものとする。
-- 既存モデルのオリジナルデータは変更しない。
-- 既存モデルを使用したデモシーンがある。
-
-ここでは、デフォルメの入った3Dキャラである「ATART Archer」を例に説明する。
-
-## fbxファイルを複製してシェーダを差し替える
-
-### ファイルの複製
-
-オリジナルデータを変更せずにシェーダを差し替えるということで、
-まずはfbxファイルをそのまま複製する。
-
-Projectビュー上でファイル（ここではfbxファイル）を選んでCtrl+Dキーを押すと、ファイルを複製できる。
-
-![duplicate_model](./media/duplicate_model.png)
-
-これはfbxファイル以外にも使用できる。
-
-複製したファイルは好き勝手してもいいように別フォルダに移しておく。
-ここではSandbox/Models/Duplicatedフォルダに入れ、ファイル名をShaderArcher01に変更した。
-
-### fbxファイルの中身を見る
-
-複製したfbxファイルの中身を見ると、
-
-![archer_fbx_structure](./media/archer_fbx_structure.png)
-
-「Bip001」「Mesh01（箱アイコン）」「Mesh01（格子アイコン）」「ShaderArcher01Avatar」という4つのものがfbxファイルに内包されている（アセットの内包については別ページ（作成中）を参照）。
-これらは、
-
-- Bip001→キャラの骨格を表すためのGameObjectのツリー
-- Mesh01（箱アイコン）→メッシュ情報を表示させるための「Skinned Mesh Renderer」がアタッチされたGameObject
-- Mesh01（格子アイコン）→メッシュ情報
-- ShaderArcher01Avatar→このモデルをHumanoidとして解釈するための情報が入ったもの
-
-であり、モデルによって名前は違うが、3Dモデルはこれに類似のものを内包していることが多い。
-
-（マテリアルも内包している場合も多い。それについては後述）
-
-このうち、シェーダの変更にかかわる部分は「Mesh01(箱アイコン）」である。
-
-Mesh01（箱）にアタッチされているSkinned Mesh Rendererには2つのマテリアルが設定されている。
-
-![archer_skinned_mesh_renderer](./media/archer_skinned_mesh_renderer.png)
-
-マテリアルはInspector上でプレビュー表示されている。
-
-![archer_skinned_mesh_renderer_preview](./media/archer_skinned_mesh_renderer_preview.png)
-
-マテリアルをクリックすると確認できるが、このマテリアルはfbxファイルとは独立して存在するファイルである。
-
-Inspectorのプレビュー表示上でマテリアルのシェーダを差し替えることが出来るが、
-そうするとマテリアルのオリジナルデータを編集してしまうことになる。
-
-よって方針としては「マテリアルもオリジナルを複製したものを作り、そのマテリアルを割り当てたい」のだが、上の画像から分かる通り、fbxファイルに割り当てられたマテリアルは変更できない（グレー表示）。
-
-### fbxファイルをシーン上に配置した時の動作
-
-では、fbxファイルをシーン上に配置するとどうなるか。
-
-![locate_fbx_on_stage](./media/locate_fbx_on_stage.png)
-
-これはfbxファイルをシーン上にD&Dで配置した時の状態である。
-
-一見fbxファイルがそのまま配置されたようにも見えるが、実際はそうではない。
-
-- ルートのオブジェクトはAnimatorが付与されたGameObjectであり、fbxファイルではない。
-- AvatarとMesh（格子アイコン）は無くなっている。
-- Avatarがどこに行ったかというと、Animatorの「Avatar」の欄に割り当てられている。
-- Mesh（格子アイコン）がどこに行ったかというと、Mesh01のSkinned Mesh Rendererの「Mesh」に割り当てられている。
-
-![locate_fbx_on_stage_avatar](./media/locate_fbx_on_stage_avatar.png)
-
-![locate_fbx_on_stage_mesh](./media/locate_fbx_on_stage_mesh.png)
-
-理解すべきことは、fbxファイルをシーン上に配置した場合、それはfbxファイルそのままではなく、fbxファイルを元にその要素からコンポーネントを作成したGameObjectだということである。
-
-つまり、例えば、fbxファイルの要素を一部差し替えたい場合、fbxファイルを配置してからそのGameObjectの構成要素を差し替えるか、fbxファイルをD&Dした時と類似になるようにGameObjectを作ればよい。
-
-
+前の項では、fbxファイルをシーンに配置すると、fbxファイルそのものではなく、fbxファイルを元に作られた
+GameObjectが配置されることを確認した。
 
 続いて、配置したArcherのマテリアルを変更してみよう。
 fbxの状態ではマテリアルは編集できないが、配置したGameObjectのマテリアルであれば変更できる。
@@ -97,11 +15,34 @@ fbxの状態ではマテリアルは編集できないが、配置したGameObje
 これはライティングを考慮しない（と思われる）マテリアルだが、これをライティングを考慮するマテリアルである
 PlayerFemale01_LitとPlayerFemale02_Litにそれぞれ差し替えてみる。
 
-
+![change_to_lit_material](./media/change_to_lit_material.png)
 
 すると、ちょっと見た目が変わった。まっピンクになった場合は、マテリアルに、URPに対応していないビルトインシェーダが割り当てられていると思われるので、シェーダをURP/Litに変更するなどして対応する。
 
 試しに、シーン上のDirectional Lightを無効にしてみると、URP/Litのマテリアルを割り当てたArcherのみが光の影響を受けて色が変わる。
+
+続いて、別のシェーダを試してみる。設定されているマテリアルのShaderを変更するとそのマテリアルが変更されてしまうので、マテリアルを複製してからシェーダを変更する。ここではFlat Kitのシェーダを使うため、PlayerFemale01_Flat01という名前にする。（まだshaderはURP/Litのまま）
+
+![create_flat_material](./media/create_flat_material.png)
+
+そして、それぞれのマテリアルをFlat Kit/Stylized Surfaceにする。
+
+![change_to_flat_material](./media/change_to_flat_material.png)
+
+元々テクスチャに陰影がついているので分かりづらいが、右がURP/Litのシェーダ、左がFlat kit/Stylized Surfaceのシェーダを割り当てたArcher。左の方は、腕や手袋の影がくっきりしているのが分かる。
+
+## シェーダのパラメータ
+
+ところで、シェーダにはそれぞれパラメータがある。
+
+Flat Kit/Stylized Surfaceはテクスチャを「Texture Maps」→「Albedo」の位置に入れる。
+（URP/Litから切り替えると自動的に入るようになっている）
+
+シェーダによる表現を使いこなすには、シェーダのマニュアルを読むなどして
+各パラメータの意味を理解しなければならない。
+
+![flat_kit_parameter](./media/flat_kit_parameter.png)
+
 
 
 
