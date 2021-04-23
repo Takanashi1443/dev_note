@@ -39,13 +39,13 @@ Unityと外部ソフトのやりとりも含む。
 ここでは、折角シェーダを変えられるようになったので3D空間を動かせるようにしてみる。
 キャラを比較的簡単に動かせる、Character Controllerを使用する。
 
-[キャラクターの準備(CharacterController)](./character_control.md)
+[キャラクターの準備(CharacterController)](./character_controller/character_control.md)
 : とりあえず、ステージとカプセル状のキャラクターを配置する方法。
 
-[カメラの準備(Cinemachine)](./camera_cinemachine.md)
+[カメラの準備(Cinemachine)](./character_controller/camera_cinemachine.md)
 : キャラクターが動いても追随させる方法。
 
-[人型キャラをアニメーションさせる](./character_animation.md)
+[人型キャラをアニメーションさせる](./character_controller/character_animation.md)
 : カプセルから人型キャラにし、動きに合わせてアニメーションさせる方法。
 
 
