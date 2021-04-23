@@ -13,28 +13,27 @@ Unityと外部ソフトのやりとりも含む。
 
 ### 仕組み編
 
-- [URPについて最低限知っておくべきこと](./how_it_works/what_is_urp.md)
+[URPについて最低限知っておくべきこと](./how_it_works/what_is_urp.md)
+: 標準とするURP（Universal Rendering Pipeline）について最低限知っておくべきこと。
 
-標準とするURP（Universal Rendering Pipeline）について最低限知っておくべきこと。
+[Unityにおける「マテリアル」と「シェーダ」](./how_it_works/material_and_shader.md)
+: 3Dオブジェクトの表示にはマテリアルとシェーダの理解が不可欠。
 
-- [Unityにおける「マテリアル」と「シェーダ」](./how_it_works/material_and_shader.md)
-
-3Dオブジェクトの表示にはマテリアルとシェーダの理解が不可欠。
-
-- [fbxフォーマットについて](./how_it_works/fbx_format.md)
-
-3Dモデルで最もよく使用されるfbxフォーマットについて。
-3DソフトとしてはBlenderを基本とするが、Blenderについては「Blenderとの連携編」を参照。
+[fbxフォーマットについて](./how_it_works/fbx_format.md)
+: 3Dモデルで最もよく使用されるfbxフォーマットについて。
+: 3DソフトとしてはBlenderを基本とするが、Blenderについては「Blenderとの連携編」を参照。
 
 ### シェーダ編
 
-- [URPで使えるシェーダへの変換](./shader/convert_to_urp.md)
+[URPで使えるシェーダへの変換](./shader/convert_to_urp.md)
+: 変換に対応しているビルトインシェーダをURP用のシェーダに変換する方法。
 
-変換に対応しているビルトインシェーダをURP用のシェーダに変換する方法。
+- [fbxファイルをシーン上に配置した時の挙動](./shader/fbx_on_stage.md)
+fbxモデルをシーンに配置した時の挙動など。次の項でシェーダの切り替えを行う準備。
 
 - [既存モデルのシェーダを変更して遊んでみる](./shader/change_shader.md)
-
-URPの基本的なシェーダが割り当てられた既存モデルのシェーダを、モデルのオリジナルデータを残したまま変更してみる。fbxモデルをシーンに配置した時の挙動なども。
+: URPの基本的なシェーダが割り当てられた既存モデルのシェーダを、
+: モデルのオリジナルデータを残したまま変更してみる。fbxモデルをシーンに配置した時の挙動なども。
 
 <!--
 
