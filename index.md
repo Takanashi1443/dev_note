@@ -11,7 +11,9 @@
     - [標準的なプロジェクトの作成](./unity_default_project.md)
     - [●グラフィック](./unity_graphic/index.md)
     - [●Unityの学習・ShibaTemplateについて](template/index.md)
-    - [3D技術について](3d/index.md)
-    - [Unityのアセット](assets/index.md)
+    - [●3D技術について](3d/index.md)
+    - [●Unityのアセット](assets/index.md)
+- ツール
+    - [●Python](./python/index.md)
 - [その他雑記・メモ](./others.md)
 
