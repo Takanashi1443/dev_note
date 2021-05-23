@@ -16,4 +16,5 @@
 - ツール
     - [●Python](./python/index.md)
 - [その他雑記・メモ](./others.md)
+- [個人的覚書](./reminder/index.md)
 
