@@ -6,4 +6,4 @@ VSCode上でCtrl+K→VキーでMarkdownの表示ができる。
 
 - [フォルダ構成とアセンブリ分割](./folder.md)
 - [エラー対処](./errors.md)
-
+- [久しぶりの作業の時](./long_time_no_see.md)
