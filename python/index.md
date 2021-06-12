@@ -8,4 +8,5 @@
 
 - [全体的な環境構築](./env.md)
 - [venvによる仮想環境](./venv.md)
+- [●ちょっと特殊なことをやりたい](./specials/index.md)
 
