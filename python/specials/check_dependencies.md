@@ -33,5 +33,47 @@ python -m pipdeptree
 
 コマンドを実行すると、ライブラリの依存関係が表示される。
 
-例：numpyとopencv-pythonをインストール後、実行した場合
+例：numpy、opencv-python、pandasをインストール後、実行した場合
+
+```dos
+
+opencv-python==4.5.2.54
+  - numpy [required: >=1.19.3, installed: 1.20.3]
+pandas==1.2.4
+  - numpy [required: >=1.16.5, installed: 1.20.3]
+  - python-dateutil [required: >=2.7.3, installed: 2.8.1]
+    - six [required: >=1.5, installed: 1.16.0]
+  - pytz [required: >=2017.3, installed: 2021.1]
+
+```
+
+## ライブラリのライセンスの確認
+
+アプリのルートフォルダで
+
+```dos
+
+python -m pip-licenses
+
+```
+
+コマンドを実行すると、各ライブラリのライセンスが表示される。
+
+例：numpy、opencv-python、pandasをインストール後、実行した場合
+
+```
+
+ Name                   Version   License
+ numpy                  1.20.3    BSD License
+ opencv-python          4.5.2.54  MIT License
+ pandas                 1.2.4     BSD
+ python-dateutil        2.8.1     BSD License, Apache Software License
+ pytz                   2021.1    MIT License
+ scipy                  1.6.3     BSD License
+ six                    1.16.0    MIT License
+
+```
+
+
+
 
