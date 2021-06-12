@@ -74,6 +74,12 @@ python -m pip-licenses
 
 ```
 
+## 参考ページ
+
+- [Pythonパッケージの依存関係とライセンスを確認する](https://dev.classmethod.jp/articles/python-pipdeptree_licenses/)
+
+
+
 
 
 
